@@ -43,7 +43,7 @@ select opt in "${osOpts[@]}"
 do
   case ${opt} in
     "Linux/Mac")
-      rcPath="~/"
+      rcPath="/home/eranm6/"
       rcFileName=".bashrc"
       break
       ;;
