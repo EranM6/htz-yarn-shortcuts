@@ -81,8 +81,8 @@ do
 		exist=false
 	fi
 
-	#get the repository's remote URL and check if it's belong to the selected app
 	if [[ ${exist} == true ]]; then
+	    #get the repository's remote URL and check if it's belong to the selected app
 		originUrl=$(git --git-dir "$projectPath/.git" config --get remote.origin.url)
 
 		re="^.+/(.+).git$"
@@ -127,7 +127,7 @@ fi
 
 if [[ ${writeToFile} == "true" ]]; then
 
-    #write to .bashrc file.
+    #write the function file.
     if [[ ${appName} == "htz-frontend" ]]; then
         cat <<FNC >${rcPath}${appName}.sh
 #!/usr/bin/env bash
@@ -168,6 +168,7 @@ function htz(){
 }
 FNC
         if [[ ${overwrite} == "false" ]]; then
+            #import the function file to .bashrc file.
             echo "source ${rcPath}${appName}.sh" >> ${rcPath}${rcFileName}
         fi
     fi
