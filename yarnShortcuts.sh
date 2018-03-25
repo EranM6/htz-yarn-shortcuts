@@ -43,7 +43,7 @@ select opt in "${osOpts[@]}"
 do
   case ${opt} in
     "Linux/Mac")
-      rcPath="/home/eranm6/"
+      rcPath="${HOME}/"
       rcFileName=".bashrc"
       break
       ;;
@@ -172,9 +172,6 @@ FNC
             echo "source ${rcPath}${appName}.sh" >> ${rcPath}${rcFileName}
         fi
     fi
-
-    #reload the .bashrc file (DOESN'T WORK)
-    $(. ${rcPath}${rcFileName})
 
     echo "${yellow}$success${normal}"
     echo "${cyan}Sweet zombie Jebus${normal}"
