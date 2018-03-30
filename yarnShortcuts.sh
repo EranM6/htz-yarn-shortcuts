@@ -155,6 +155,21 @@ function htz(){
             else
                 echo "\${red}You didn't select any app...\${normal}"
             fi
+        elif [[ \$1 == "script" ]]; then
+            if ! [[ -z "\$2" ]]; then
+                if [[ \$2 == "components" ]]; then
+                    if ! [[ -z "\$3" ]]; then
+                        cd packages/components/htz-components
+                        npm run \$3
+                        cd ${projectPath}
+                    else
+                        echo "\${red}You didn't select any script to run...\${normal}"
+                    fi
+                fi
+            else
+                echo "\${red}Please select the package and script to run"
+                echo "e.g.\${normal} htz script components lists"
+            fi
         elif ! [[ -z "\$2" ]]; then
             if [[ \$1 == "components" || \$1 == "theme" ]]; then
                 yarn workspace @haaretz/htz-\$1 \$2
