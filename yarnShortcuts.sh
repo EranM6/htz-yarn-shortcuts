@@ -141,6 +141,87 @@ function htz(){
     if ! [[ -z "\$1" ]]; then
         if [[ \$1 == "test" || \$1 == "bootstrap" ]]; then
             yarn \$1
+        elif [[ \$1 == "new" ]]; then
+            if [[ \$2 == "component" ]]; then
+                if [[ -z "\$3" ]]; then
+                    echo "\${red}Please enter the name of the component you want to create\${normal}"
+
+                else
+                    if ! [[ -z "\$4" ]]; then
+                        componentName=\${4^}
+                        if [[ \$3 == "--state" || \$3 == "-S" ]]; then
+                            execute=true
+                            state=true
+                        else
+                            execute=false
+                            echo "\${red}\${3} is not an option\${normal}"
+                        fi
+                    else
+                        componentName=\${3^}
+                        execute=true
+                        state=false
+                    fi
+                    if [[ \${execute} == true ]]; then
+                        componentPath="${projectPath}/packages/components/htz-components/src/components/\${componentName}"
+                        if ! [ -d \${componentPath} ]; then
+                            mkdir -p \${componentPath}
+                            mkdir -p \${componentPath}/__tests__
+                            if [[ \${state} == true ]]; then
+                              cat <<JSF >\${componentPath}/\${componentName}.js
+import React from 'react';
+import PropTypes from 'prop-types';
+
+class \${componentName} extends React.Component {
+  static propTypes = {
+  };
+
+  static defaultProps = {
+  };
+
+  state = {
+  };
+
+  render() {
+    return(
+    );
+  }
+};
+
+export default \${componentName};
+
+JSF
+                            else
+                                cat <<JSF >\${componentPath}/\${componentName}.js
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const propTypes = {
+};
+
+const defaultProps = {
+};
+
+function \${componentName}() {
+  return(
+  );
+};
+
+\${componentName}.propTypes = propTypes;
+\${componentName}.defaultProps = defaultProps;
+
+export default \${componentName};
+
+JSF
+                            fi
+                        else
+                            echo "\${red}\${componentName} already exists\${normal}"
+                        fi
+                    fi
+                fi
+
+            else
+                echo "\${red}Please specify what new element you'd like to create \${normal}"
+            fi
         elif [[ \$1 == "app" ]]; then
             if ! [[ -z "\$2" ]]; then
                 if ! [[ -z "\$3" ]]; then
